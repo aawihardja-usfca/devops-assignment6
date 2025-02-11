@@ -14,8 +14,8 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MY_SQL_ROOT_PASSWORD: password
-          MY_SQL_DATABASE: mn_playground
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: mn_playground
         ports:
           - 3306:3306
         options: >-
