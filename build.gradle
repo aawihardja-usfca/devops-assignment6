@@ -3,10 +3,11 @@ plugins {
     id("io.micronaut.application") version "4.4.2"
     id("io.micronaut.test-resources") version "4.4.2"
     id("io.micronaut.aot") version "4.4.2"
+    id("maven-publish")
 }
 
-version = "0.1"
-group = "com.piyal"
+version = "1.0.0"
+group = "com.github.aawihardja-usfca"
 
 repositories {
     mavenCentral()
@@ -67,10 +68,24 @@ micronaut {
     }
 }
 
-
 tasks.named("dockerfileNative") {
     jdkVersion = "21"
 }
 
-
-
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/aawihardja-usfca/devops-assignment6")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
